@@ -1,4 +1,3 @@
-
 export class Profile{
     nome: string;
     cognome: string;
