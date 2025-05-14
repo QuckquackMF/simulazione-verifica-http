@@ -17,3 +17,9 @@ export class Profile{
         this.ora = ora
     }
 }
+
+
+export interface Response
+{
+    id :number
+}
