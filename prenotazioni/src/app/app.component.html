@@ -1,30 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <div class="container">
-    <div>
-     Nome: <input id="nome" name="nome" type="text" #nome>
-     Cognome: <input id="cognome" name="cognome" type="text" #cognome>
-     Indirizzo: <input id="indirizzo" name="indirizzo" type="text" #indirizzo>
-     Telefono: <input id="telefono" name="telefono" type="number" #telefono>
-     Email: <input id="email" name="email" type="text" #email>
-     Data: <input id="data" name="data" type="date" #data>
-     Ora: <input id="ora" name="ora" type="number" #ora>
-    </div>
-    <button type="button" (click) = "aggiungiDati(nome, cognome, indirizzo, telefono, email, data, ora)">Salva</button>
-  </div>
 
-  <div class="container">
-    @for(art of fooData; track art)
-    {
-      <div>
-        <h3>{{art.title}}</h3>
-        <b>post {{art.id}} di utente #: {{art.userId}}</b>
-        <div>
-            {{art.body}}
+  <header class="container mt-4">
+    <h3>Form di inserimento</h3>
+  </header>
+
+  <div class="container mt-4">
+    <!-- FORM DI INSERIMENTO -->
+    <form class="bg-info p-3 mb-3 rounded text-dark">
+      
+      <div class="form-group row mb-2">
+        <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+        <div class="col-sm-10">
+          <input id="nome" name="nome" type="text" #nome class="form-control">
         </div>
-        <hr>
+      </div>
+  
+      <div class="form-group row mb-2">
+        <label for="cognome" class="col-sm-2 col-form-label">Cognome</label>
+        <div class="col-sm-10">
+          <input id="cognome" name="cognome" type="text" #cognome class="form-control">
+        </div>
+      </div>
+  
+      <div class="form-group row mb-2">
+        <label for="indirizzo" class="col-sm-2 col-form-label">Indirizzo</label>
+        <div class="col-sm-10">
+          <input id="indirizzo" name="indirizzo" type="text" #indirizzo class="form-control">
+        </div>
+      </div>
+  
+      <div class="form-group row mb-2">
+        <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
+        <div class="col-sm-10">
+          <input id="telefono" name="telefono" type="number" #telefono class="form-control">
+        </div>
+      </div>
+  
+      <div class="form-group row mb-2">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input id="email" name="email" type="text" #email class="form-control">
+        </div>
+      </div>
+  
+      <div class="form-group row mb-2">
+        <label for="data" class="col-sm-2 col-form-label">Data</label>
+        <div class="col-sm-10">
+          <input id="data" name="data" type="date" #data class="form-control">
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="ora" class="col-sm-2 col-form-label">Ora</label>
+        <div class="col-sm-10">
+          <input id="ora" name="ora" type="number" #ora class="form-control">
+        </div>
+      </div>
+
+    </form>
+
+    <div class="container mt-2 text-end">
+      <button class="btn btn-success" (click)="aggiungiDati(nome, cognome, indirizzo, telefono, email, data, ora)">
+        Salva
+      </button>
+    </div>
+  
+    <!-- LISTA PRENOTAZIONI -->
+    <div class="container mt-2">
+      <h6>Lista prenotazioni</h6>
+    </div>
+    <div class="p-2 mb-1 border rounded" style="background-color: #f3f381; height: 200px; overflow-y: auto;">
+      @for (art of profiles; track art) {
+        <div (click)="showDetails(art)" class="py-1" style="cursor: pointer;">
+          <span class="fw-bold">
+            {{ art.data | date:'yyyy-MM-dd' }} - {{ art.ora }} -> {{ art.nome }} {{ art.cognome }}
+          </span>
+        </div>
+      }
+    </div>
+  
+    <!-- DETTAGLI -->
+    @if (selectedProfile) {
+      <div class="p-2 border rounded mt-2" style="background-color: #f4c7ab;">
+        <strong>{{ selectedProfile.data | date:'yyyy-MM-dd' }} - {{ selectedProfile.ora }} -> {{ selectedProfile.nome }} {{ selectedProfile.cognome }}</strong><br>
+        {{ selectedProfile.indirizzo }}<br>
+        TEL: {{ selectedProfile.telefono }} - {{ selectedProfile.email }}
       </div>
     }
-
+  
   </div>
 </html>

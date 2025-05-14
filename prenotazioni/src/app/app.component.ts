@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Profile, Response } from './pre.module'
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, JsonPipe],
+  imports: [RouterOutlet, JsonPipe, DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   nuovidati! : Profile;
   obsPost = new Observable<Response>;
   yippie! : Observable<Profile[]>;
+  selectedProfile!: Profile;
 
   constructor(public http: HttpClient) {}
   
@@ -62,12 +63,19 @@ export class AppComponent implements OnInit {
   }
 
   makeTypedRequest() {
-    this.yippie = this.http.get<Profile[]>('https://jsonplaceholder.typicode.com/posts');
+    this.yippie = this.http.get<Profile[]>('https://my-json-server.typicode.com/QuckquackMF/http/prenotazioni');
     this.yippie.subscribe(data => {this.profiles = data;});
+  }
+
+ 
+  showDetails(profile: Profile): void {
+    this.selectedProfile = profile;
   }
 
   ngOnInit() {
     this.makeRequest()
+    this.makeTypedRequest()
+
   }
 
 }
